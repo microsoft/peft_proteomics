@@ -1,0 +1,54 @@
+run_name: ???
+cuda_visible_devices: ???
+log_level: 20
+MASTER_ADDR: localhost
+MASTER_PORT: 12320
+
+META_DATA_FILE: [YOUR DIRECTORY]/data/ppi/gold_standard_data_table.tsv
+SPLITS_FILE: [YOUR DIRECTORY]/data/ppi/gold_standard_data_table.tsv
+TRAIN_SEQUENCES_FILE: [YOUR DIRECTORY]/data/ppi/human_swissprot_oneliner.fasta
+VALID_SEQUENCES_FILE: [YOUR DIRECTORY]/data/ppi/human_swissprot_oneliner.fasta
+
+max_crop: 1024
+
+num_workers: 0
+pin_memory: true
+checkpoint_file: null
+
+USE_AMP: false
+n_epoch: 50
+save_every: 1
+epoch_size: 16384
+batch_size: 4
+accum_step: 16
+report_step: 16
+lr: 0.001
+l2_coeff: 0.01
+key_requires_grad:
+  - "classifier"
+
+ema: false
+
+esm_pretrained: esm2_t33_650M_UR50D
+esm_clsf_hidden_size: 128
+esm_clsf_dropout_prob: 0.0
+
+do_peft: true
+layers_to_transform:
+  - 32
+  - 31
+  - 30
+  - 29
+  - 28
+  - 27
+  - 26
+  - 25
+inference_mode: false
+lora_r: 8
+lora_alpha: 32
+lora_dropout: 0.1
+lora_bias: none
+lora_l2_coeff: 0.01
+do_query: False
+do_key: True
+do_value: True
