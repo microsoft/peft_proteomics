@@ -1,33 +1,28 @@
-# Project
+# Democratizing Protein Language Models with Parameter-Efficient Fine-Tuning
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+![Graphic Abstract](figures/graphic_abstract.png)
 
-As the maintainer of this project, please make a few updates:
+🚧🚧 This is a pre-release 🚧🚧
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+Code from our [manuscript](https://www.biorxiv.org/content/10.1101/2023.11.09.566187v1.full.pdf) on PEFT for protein language models.
 
-## Contributing
+## Creating the environment using conda ##
+Please use the provided env.yml file to install the required packages in a conda environment
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+```conda env create -f env.yml```
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+## Running the code ##
+Parameters to run the code, such as train and test mode, LoRA parameters (rank, matrices to adapt), data file paths, data splits etc. are provided in a configuration file. Sample configuration files are provided under ./ppi/config/ and ./symmetry/config
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+In addition to the configuration file, provide an identifier for your experiment as RUN_NAME and the gpu ids to use as DEVICES
 
-## Trademarks
+#### Using run_job.sh
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+```sh run_job_ppi.sh $RUN_NAME $CONFIG $DEVICES```
+
+```sh run_job_symmetry.sh $RUN_NAME $CONFIG $DEVICES```
+
+Example: ```sh run_job.sh ppi_ft_expt ppi/config/config_ppi_finetune.yaml 0```
+
+#### Using python script
+```python ppi/main.py --run_name "$RUN_NAME" --config "$CONFIG" --devices "$DEVICES"```
