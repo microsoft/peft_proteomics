@@ -409,7 +409,7 @@ def mp_main(rank, world_size, params):
             
         if (epoch + 1) % params.save_every == 0:
             logg.info(f"Saving checkpoint (Epoch {epoch})")
-            save_model(f"checkpoint{epoch}", model, optimizer, best_valid_loss, best_valid_aupr, scheduler, epoch, params, logg)
+            save_model(f"checkpoint{epoch}", model, optimizer, scheduler, epoch, best_valid_loss, best_valid_aupr, params, logg)
     
     save_model("last", model, optimizer, scheduler, epoch, best_valid_loss, best_valid_aupr, params, logg)
             
